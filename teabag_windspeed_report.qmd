@@ -1,0 +1,56 @@
+---
+title: "Teabag windspeeds"
+format: html
+editor: visual
+---
+
+# Background
+
+## Motivation
+
+Teabags have become an almost integral part of science (see [Keuskamp et al, 2013](https://besjournals.onlinelibrary.wiley.com/doi/10.1111/2041-210X.12097)). However, it remains elusive if they could serve for advanced meteorological measurements just as well as for decomposition experiments or keeping researchers awake during late-night working sessions. Here, we explore the use of standard teabags to measure wind speed in an extreme alpine environment.
+
+## Methodology
+
+\[some fancy summary here\]
+
+# Workflow
+
+## Setup
+
+```{r}
+#| label: setup
+#| message: false
+#| warning: false
+
+# load pacman which provides wrappers for installing and loading packages
+if(!require(pacman)) install.packages("pacman")
+# load/install packages
+pacman::p_load(tidyverse,
+               tidylog,
+               lubridate,
+               skimr)
+```
+
+## Data wrangling
+
+Let's get the data in here and fix the formats some variables:
+
+```{r}
+#| label: data-import-wrangling
+teabags <- read_csv(file = "221115_teabag_windspeed_data.csv") |> 
+  
+  # format date column from dd/mm/yyyy to standard format yyyy-mm-dd
+  mutate(date = lubridate::dmy(date)) |> 
+  # convert location_no, replicate, topo, type to factors
+  mutate(across(c(location_no, replicate, topo, type),
+                as.factor))
+
+```
+
+```{r}
+#| label: check-data
+
+glimpse(teabags)
+
+```
