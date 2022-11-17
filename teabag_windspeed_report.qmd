@@ -46,6 +46,9 @@ teabags <- read_csv(file = "221115_teabag_windspeed_data.csv") |>
   mutate(across(c(location_no, replicate, topo, type),
                 as.factor))
 
+# Convert distance to a more standard unit (1kf = 0.3m)
+teabags$distance_m = teabags$distance_kf * 0.3
+
 ```
 
 ```{r}
